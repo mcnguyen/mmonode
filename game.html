@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<title>Space Game</title>
+	</head>
+	
+	<body>
+		<canvas id="game" width="640" height="480"></canvas>
+
+		<script>
+			class SpaceEth {
+
+				constructor(canvas){
+					this._canvas = canvas;
+					this._context = canvas.getContext('2d');
+
+			        let lastTime = null;
+
+			        this._frameCallback = (ms) => {
+			            if (lastTime !== null) {
+			                const diff = ms - lastTime;
+			                this.update(diff / 1000);
+			            }
+			            lastTime = ms;
+			            requestAnimationFrame(this._frameCallback);
+			        };					
+
+				}
+
+			    draw(){
+
+			    }
+
+			    clear(){
+			        this._context.fillStyle = '#000';
+			        this._context.fillRect(0, 0, this._canvas.width, this._canvas.height);
+			    }
+
+				update(dt){
+					
+					this.clear();
+
+					this.draw();
+				}
+
+				startGame(){
+					requestAnimationFrame(this._frameCallback);
+				}
+			}
+
+
+			window.onload = function(){
+				canvas = document.getElementById('game');
+
+				const game = new SpaceEth(canvas);
+				game.startGame();
+			}
+
+
+		</script>
+	</body>
+</html>
