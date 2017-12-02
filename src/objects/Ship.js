@@ -5,23 +5,83 @@ export default class Ship extends SpaceObject {
     super(x, y)
   }
 
-  draw (context) {
+  draw (state) {
     let w = 2
     let h = 4
 
-    context.strokeStyle = '#FFFFFF'
-    context.lineWidth = 1
+    state.context.save();
 
-    context.beginPath()
-    context.moveTo(this.x, this.y - (h / 2))
-    context.lineTo(this.x - (w / 2), this.y + (h / 2))
-    context.lineTo(this.x + (w / 2), this.y + (h / 2))
-    context.lineTo(this.x, this.y - (h / 2))
-    context.closePath()
-    context.stroke()
-    context.restore()
+    state.context.strokeStyle = '#FFFFFF'
+    state.context.lineWidth = 1
 
-    context.fillStyle = '#FF0000'
-    context.fillRect(this.x, this.y, 1, 1)    
+    state.context.translate((this.x - state.cam.x), (this.y - state.cam.y));
+    state.context.rotate(this.rotation * Math.PI / 180);
+
+    state.context.beginPath()
+    state.context.moveTo(0, - (h / 2))
+    state.context.lineTo(0 - (w / 2), (h / 2))
+    state.context.lineTo((w / 2), (h / 2))
+    state.context.lineTo(0, 0 - (h / 2))
+    state.context.closePath()
+    state.context.stroke()
+
+    state.context.fillStyle = '#FF0000'
+    state.context.fillRect(0, 0, 1, 1)    
+
+    state.context.restore()
+
+    if(this == state.playerShip) {
+      let differenceX = state.destination.x - this.x;
+      let differenceY = state.destination.y - this.y;
+
+      let angle = Math.atan2(differenceY, differenceX) * 180 / Math.PI;
+
+      this.x += Math.cos(angle * Math.PI/180) * 1;
+      this.y += Math.sin(angle * Math.PI/180) * 1;
+
+      if(state.destination.angle !== this.rotation){
+
+      	if( (state.destination.angle-this.rotation+360)%360>180 ) {
+	      this.rotation++
+ 	      if(this.rotation > 359 ) this.rotation = 0
+      	} else {
+	      this.rotation--
+ 	      if(this.rotation < 0 ) this.rotation = 359
+      	}
+
+      }
+    }
+/*
+    if(this.x < state.destination.x) {
+    	this.x ++
+    }
+
+    if(this.x > state.destination.x) {
+    	this.x --
+    }
+
+    if(this.y < state.destination.y) {
+    	this.y ++
+    }
+
+    if(this.y > state.destination.y) {
+    	this.y --
+    }
+*/
+    //this.rotation++
+/*
+    context.beginPath();
+    context.moveTo(0, -15);
+    context.lineTo(10, 10);
+    context.lineTo(5, 7);
+    context.lineTo(-5, 7);
+    context.lineTo(-10, 10);
+    context.closePath();
+    context.fill();
+    context.stroke();
+    context.restore();
+*/
+
+
   }
 }
