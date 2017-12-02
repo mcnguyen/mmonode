@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import Ship from './objects/Ship'
 
 export default class SpaceNode extends Component {
   constructor () {
     super()
 
     this.state = {
+      ships: [],
       context: null
     }
   }
@@ -25,6 +27,14 @@ export default class SpaceNode extends Component {
       requestAnimationFrame(this._frameCallback)
     }
     requestAnimationFrame(this._frameCallback)
+
+    let sh = new Ship(320,240);  
+
+    let newShips = Object.assign([], this.state.ships)
+    
+    newShips.push(sh)
+
+    this.setState({ships: newShips})
   }
 
   update (dt) {
@@ -34,26 +44,9 @@ export default class SpaceNode extends Component {
   }
 
   draw () {
-    let w = 2
-    let h = 4
-
-    let x = 320
-    let y = 240
-
-    this.state.context.strokeStyle = '#FFFFFF'
-    this.state.context.lineWidth = 1
-
-    this.state.context.beginPath()
-    this.state.context.moveTo(x, y - (h / 2))
-    this.state.context.lineTo(x - (w / 2), y + (h / 2))
-    this.state.context.lineTo(x + (w / 2), y + (h / 2))
-    this.state.context.lineTo(x, y - (h / 2))
-    this.state.context.closePath()
-    this.state.context.stroke()
-    this.state.context.restore()
-
-    this.state.context.fillStyle = '#FF0000'
-    this.state.context.fillRect(x, y, 1, 1)
+  	for (let ship of this.state.ships) {
+      ship.draw(this.state.context)
+  	}
   }
 
   clear () {
