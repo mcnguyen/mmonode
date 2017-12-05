@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Ship from './objects/Ship'
 import Asteroid from './objects/Asteroid'
+import Base from './objects/Base'
 
 export default class SpaceNode extends Component {
   constructor () {
@@ -46,6 +47,8 @@ export default class SpaceNode extends Component {
     let as3 = new Asteroid(850,460)
     let as4 = new Asteroid(800,490)
 
+    let base1 = new Base(100,100)
+
     let newShips = Object.assign([], this.state.worldObjects)
     newShips.push(sh)
     newShips.push(sh1)
@@ -57,6 +60,8 @@ export default class SpaceNode extends Component {
     newShips.push(as3)
     newShips.push(as4)
 
+    newShips.push(base1)
+    
     this.setState({worldObjects: newShips, player: sh})
   }
 
