@@ -1,17 +1,17 @@
 import SpaceObject from './SpaceObject'
 
 export default class Ship extends SpaceObject {
-  constructor ( x, y) {
-    super(x, y)
+  constructor ( x, y, width, height, objectTitle) {
+    super(x, y, width, height, objectTitle)
   }
   
   update (state) {
     if(this == state.player) {
 
-      let angle = Math.atan2((state.destination.y - this.y), (state.destination.x - this.x) ) * 180 / Math.PI;
+      let angle = Math.atan2((state.destination.y - this.y), (state.destination.x - this.x) ) * 180 / Math.PI
 
-      this.x += Math.cos(angle * Math.PI/180) * 1;
-      this.y += Math.sin(angle * Math.PI/180) * 1;
+      this.x += Math.cos(angle * Math.PI/180) * 1
+      this.y += Math.sin(angle * Math.PI/180) * 1
 
       if(state.destination.angle !== this.rotation){
 
@@ -28,16 +28,16 @@ export default class Ship extends SpaceObject {
   }
 
   draw (state) {
-    let w = 2
-    let h = 4
+    let w = this.width
+    let h = this.height
 
-    state.context.save();
+    state.context.save()
 
     state.context.strokeStyle = '#FFFFFF'
     state.context.lineWidth = 1
 
-    state.context.translate((this.x - state.cam.x), (this.y - state.cam.y));
-    state.context.rotate(this.rotation * Math.PI / 180);
+    state.context.translate((this.x - state.cam.x), (this.y - state.cam.y))
+    state.context.rotate(this.rotation * Math.PI / 180)
 
     state.context.beginPath()
     state.context.moveTo(0, - (h / 2))

@@ -2,18 +2,17 @@ import SpaceObject from './SpaceObject'
 
 export default class Asteroid extends SpaceObject {
 
-  constructor ( x, y) {
-    super(x, y)
+  constructor ( x, y, width, height, objectTitle) {
+    super(x, y, width, height, objectTitle)
     
     this.vertices = []
 
-    let size = Math.round(20 + Math.random() * 20)   
+    let size = Math.round(20 + Math.random() * this.width)   
     let numVertices = Math.round(5 + Math.random() * 4)   
     
     let range = 360 / numVertices 
 
     for(let v = 0; v < numVertices; v++ ){
-      //pick a random angle, pick a random distance based on the size
       let randomAngle = (range*v) + Math.round(Math.random() * range)
       let randomDistance = 10 + Math.round(Math.random() * size)
       
@@ -26,12 +25,12 @@ export default class Asteroid extends SpaceObject {
     this.velocityX = Math.round(Math.random() * 0.1)
     this.velocityY = Math.round(Math.random() * 0.1)
 
-    this.rotationSpeed = Math.random() * 0.06;
+    this.rotationSpeed = Math.random() * 0.06
     
   }
   
   update (state) {
-     // let angle = Math.atan2((state.destination.y - this.y), (state.destination.x - this.x) ) * 180 / Math.PI;
+
       this.rotation += this.rotationSpeed
 
       if(this.rotation > 360) this.rotation -= 360
@@ -43,7 +42,7 @@ export default class Asteroid extends SpaceObject {
 
   draw (state) {
 
-    state.context.save();
+    state.context.save()
 
     state.context.strokeStyle = '#FFFFFF'
     state.context.lineWidth = 1
