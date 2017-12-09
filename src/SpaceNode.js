@@ -46,7 +46,8 @@ export default class SpaceNode extends Component {
 
     let as1 = new Asteroid(1000,500,20,20, 'Asteroid 1')
     let as2 = new Asteroid(900,450,20,20, 'Asteroid 2')
-
+    let as3 = new Asteroid(850,490,20,20, 'Asteroid 3')
+    let as4 = new Asteroid(750,490,20,20, 'Asteroid 4')
 
     let base1 = new Base(100,100,100,100, 'Space Station')
 
@@ -56,6 +57,8 @@ export default class SpaceNode extends Component {
 
     newShips.push(as1)
     newShips.push(as2)
+    newShips.push(as3)
+    newShips.push(as4)
 
     newShips.push(base1)
 
@@ -65,7 +68,6 @@ export default class SpaceNode extends Component {
   handleCanvasClick(e){
 
     if(this.state.action == ACTION_MOVE ){
-    	// Move
       let angle = Math.round( Math.atan2(e.clientY - (this.state.cam.height/2), e.clientX - (this.state.cam.width/2)) * 180 / Math.PI )
 
       if(angle > -90) {
