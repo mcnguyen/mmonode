@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Ship from './objects/Ship'
-import Asteroid from './objects/Asteroid'
-import Base from './objects/Base'
+import Ship from './entities/objects/Ship'
+import Asteroid from './entities/objects/Asteroid'
+import Base from './entities/objects/Base'
 
 const ACTION_SELECT = "select"
 const ACTION_MOVE = "move"
@@ -58,7 +58,7 @@ export default class SpaceNode extends Component {
     newShips.push(as1)
     newShips.push(as2)
     newShips.push(as3)
-    newShips.push(as4)
+    //newShips.push(as4)
 
     newShips.push(base1)
 
@@ -78,7 +78,7 @@ export default class SpaceNode extends Component {
 
       this.setState({destination: { x: this.state.cam.x+(e.clientX), y: this.state.cam.y+(e.clientY), angle: angle }})
     } else if(this.state.action == ACTION_SELECT){
-      // Target
+
       this.setState({selectedObject: this.determineClickedObject(e.clientX, e.clientY)})   
 
       console.log(this.state.selectedObject)
